@@ -11,6 +11,13 @@ export default function App() {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
+
+  const [markers, setMarkers] = useState([
+    { key: 1, latitude: 37.78825, longitude: -122.4324, pinColor: `#${Math.floor(Math.random()*16777215).toString(16)}` },
+    { key: 2, latitude: 37.78825, longitude: -122.4100, pinColor: `#${Math.floor(Math.random()*16777215).toString(16)}` },
+    { key: 3, latitude: 37.78810, longitude: -122.4320, pinColor: `#${Math.floor(Math.random()*16777215).toString(16)}` },
+  ]);
+
   const [latLong, setLatLong] = useState([])
 
   const moveMap = (lat, long) => {
@@ -43,18 +50,21 @@ export default function App() {
       <MapView 
       //mapTypes : 'standard', 'satellite', 'hybrid', 'terrain', 'none'
       // onRegionChangeComplete={ChangeMap}
-       onPress={(e) => [setLatLong([e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude]), moveMap(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)]}
+      onPress={(e) => [ setMarkers([...markers, {key: markers.length + 1, latitude: e.nativeEvent.coordinate.latitude, longitude: e.nativeEvent.coordinate.longitude, pinColor: `#${Math.floor(Math.random()*16777215).toString(16)}`}]), moveMap(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)]}
       // showTraffic={true}
       mapType='standard'
       style={styles.mapStyle} 
       region={region} >
-        <Marker
-        //Pode ter mais de um MARKER
-         coordinate={{latitude: region.latitude, longitude: region.longitude }}
-          title='My Marker'
-          description='Some description'
-          pinColor='#000'
-         />
+        {
+          markers.map(marker => (
+            <Marker
+              key={marker.key}
+              coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+              title={'Marker Title'}
+              description={'Marker Description'}
+              image={require('./src/assets/carro.png')}
+            />))
+        }
       </MapView>
     </View>
   );
