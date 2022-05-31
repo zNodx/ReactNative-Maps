@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import { useState } from 'react';
 
 export default function App() {
@@ -43,11 +43,19 @@ export default function App() {
       <MapView 
       //mapTypes : 'standard', 'satellite', 'hybrid', 'terrain', 'none'
       // onRegionChangeComplete={ChangeMap}
-      // onPress={(e) => [setLatLong([e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude]), moveMap(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)]}
+       onPress={(e) => [setLatLong([e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude]), moveMap(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)]}
       // showTraffic={true}
-      mapType='satellite'
+      mapType='standard'
       style={styles.mapStyle} 
-      region={region} />
+      region={region} >
+        <Marker
+        //Pode ter mais de um MARKER
+         coordinate={{latitude: region.latitude, longitude: region.longitude }}
+          title='My Marker'
+          description='Some description'
+          pinColor='#000'
+         />
+      </MapView>
     </View>
   );
 }
