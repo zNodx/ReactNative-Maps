@@ -41,8 +41,11 @@ export default function App() {
       <Text>{[latLong[0],latLong[1]]}</Text>
       <StatusBar hidden={true} />
       <MapView 
+      //mapTypes : 'standard', 'satellite', 'hybrid', 'terrain', 'none'
       // onRegionChangeComplete={ChangeMap}
       // onPress={(e) => [setLatLong([e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude]), moveMap(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)]}
+      // showTraffic={true}
+      mapType='satellite'
       style={styles.mapStyle} 
       region={region} />
     </View>
